@@ -76,7 +76,10 @@ const HomeScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     // Implement your login logic here
-    const url = await uploadPhotoToS3({name: image})
+    let url = "";
+    if (image !== null) {
+      url = await uploadPhotoToS3({name: image})
+    }
     addUser(url);
     console.log(`Username: ${username}, Password: ${password}`);
     navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
