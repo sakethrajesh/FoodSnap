@@ -4,3 +4,4 @@ ultralytics
 # dotenv
 langchain
 openai
+pymongo
