@@ -27,7 +27,7 @@ const RecipeTinder = () => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
             <RecipeCard></RecipeCard>
         </TinderCard>
@@ -40,5 +40,19 @@ const RecipeTinder = () => {
       </View>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // marginHorizontal: 10,
+        marginVertical: 50
+    },
+    scrollView: {
+        flex: 1,
+        marginHorizontal: 10,
+        marginVertical: 50
+    },
 
+});
 export default RecipeTinder;

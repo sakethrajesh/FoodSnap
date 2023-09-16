@@ -4,11 +4,12 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native';
-import { NativeBaseProvider, Icon, HStack, AddIcon, Stack, Button, Pressable,Text } from "native-base";
+import { NativeBaseProvider, Icon, HStack, AddIcon, Stack, Center, Button, Pressable, Text } from "native-base";
 import RecipeListElement from "./RecipeListElement.js";
 import Toolbar from './Toolbar.js';
 import { useNavigation } from "@react-navigation/native";
 import axios from 'axios';
+import MainNavBar from './MainNavBar.js';
 
 
 
@@ -39,24 +40,24 @@ const DashboardScreen = () => {
   const navigation = useNavigation();
 
   return (
+
     <NativeBaseProvider>
+      <Center>
+        <MainNavBar></MainNavBar>
+      </Center>
       <ScrollView style={styles.scrollView}>
-        {/* <View style={styles.container}> */}
         <Toolbar></Toolbar>
-        
+
 
         {recipes ? recipes.map((item, index) => {
           return (
             <RecipeListElement key={index} imageUrl={item["image_url"]} title={item["name"]} dateCreated={new Date().getFullYear} profilePicture={profilePicture}> </RecipeListElement>
           )
         }) : <Text>Hello World</Text>}
-        
 
-
-        {/* </View> */}
       </ScrollView>
       {/* put camera page instead of recipes page */}
-      <Button style={styles.button} onPress = {() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
+      <Button style={styles.button} onPress={() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
       </Button>
     </NativeBaseProvider >
   );
