@@ -6,6 +6,8 @@ import numpy as np
 from collections import defaultdict
 import pymongo
 from bson import json_util
+from langchain.llms import OpenAI
+from langchain import PromptTemplate, LLMChain
 
 app = Flask(__name__)
 connection_string = "mongodb+srv://poweruser:1PDanWORHzg7sVfj@vthacks2023.ymk3xof.mongodb.net/?retryWrites=true&w=majority"
@@ -114,9 +116,28 @@ def getIngredients():
         color = (0, 255, 0)
         
 
-        ingredients[names[cls]] += 1
+    ingredients[names[cls]] += 1
+
+    template = """Question: {question} 
+            Answer: Let's think step by step."""
+
+    prompt = PromptTemplate(template=template, input_variables=["question"])
+
+    llm = OpenAI(openai_api_key='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')
+
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+
+    detections = ''
+
+    question = f"generate a 3 recipes with this list of ingredients ${ingredients} and use mostly the ingredients given"
+
+    thing = llm_chain.run(question)
+
+    print(thing, flush=True)
+
+        
     
-    return jsonify({"ingredients": ingredients})
+    return jsonify({"recipies": thing})
 
 # make an endpoint for the frontend to send the image to backend
 @app.route('/api/upload', methods=['POST'])
