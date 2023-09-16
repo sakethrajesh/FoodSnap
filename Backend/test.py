@@ -1,7 +1,7 @@
 import requests
 
 # make a post request to test endpoint that uploads a file
-url = "http://localhost:8001/api/getIngredients" 
+url = "http://107.21.84.60/api/getIngredients" 
 r = requests.post(url, files={"image": open("test.jpeg", "rb")})
 print(r.json())
 
