@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,26 +10,33 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ImagePicker from 'react-native-image-picker';
 import DashboardScreen from './components/DashboardScreen';
 import HomeScreen from './components/HomeScreen';
+import { useAuth, AuthProvider } from './components/AuthContext';
+import CameraScreen from './components/CameraScreen';
+import LoadingBar from './components/LoadingBar';
 import RecipeCard from './components/RecipeCard';
 import Toolbar from './components/Toolbar';
 import RecipeDetails from './components/RecipeDetails';
 
 const Stack = createStackNavigator();
 
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
-        <Stack.Screen  options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
-        <Stack.Screen   options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
-        <Stack.Screen  options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
+    <AuthProvider>
+      <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
+          <Stack.Screen options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
+          <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen}/>
+          <Stack.Screen options={{ headerShown: false }} name="ProgressBar" component={LoadingBar}/>
         <Stack.Screen  options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 

@@ -1,0 +1,7 @@
+flask
+flask-sock
+ultralytics
+# dotenv
+langchain
+openai
+pymongo

@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  foodcv:
+      environment:
+        - TZ=America/New_York
+      build:
+        context: ./FoodCV # this is the absolute path to the app directory
+        dockerfile: Dockerfile # this is the name of the Dockerfile in the app directory
+        
+      image: foodcv-image # this is the name of the image that will be used by the app service
+      networks:
+        - appnet # connect to appnet network
+      depends_on:
+        - reverse_proxy
+      container_name: foodcv
+      ports:
+        - "0.0.0.0:8001:5000"
+      expose:
+        - "5000"
+      volumes:
+        - ./FoodCV:/app
+    
+  reverse_proxy:
+    environment:
+      - TZ=America/New_York
+    hostname: reverse_proxy
+    container_name: reverse_proxy
+    build:
+      context: ./RP
+      dockerfile: DockerfileRP
+    expose:
+     - "80"
+    ports:
+     - "80:80" # the only forward facing port
+    networks:
+     - appnet # connect to appnet network
+
+# network stuff
+networks:
+  appnet: # define appnet network
+    driver: bridge # so the containers can see each other
