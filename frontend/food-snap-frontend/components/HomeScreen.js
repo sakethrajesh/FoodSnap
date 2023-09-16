@@ -49,10 +49,35 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    uploadPhotoToS3({name: image})
+  const addUser = async (uri) => {
+    try {
+      const url = 'http://107.21.84.60/add_user';
+      const data = {
+        username: username,
+        password: password,
+        profile_image_url: uri,
+        recipes: [],
+        friends: [],
+      };
+  
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      // Handle the response here
+      console.log('Response:', response.data);
+    } catch (error) {
+      // Handle errors here
+      console.error('Error:', error);
+    }
+  };
 
+  const handleLogin = async () => {
+    // Implement your login logic here
+    const url = await uploadPhotoToS3({name: image})
+    addUser(url);
     console.log(`Username: ${username}, Password: ${password}`);
     navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
   };

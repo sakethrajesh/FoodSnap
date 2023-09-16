@@ -32,3 +32,22 @@ const blob = await response.blob();
     throw error;
   }
 };
+
+export const retrievePhotoFromS3 = async (photoKey) => {
+  const params = {
+    Bucket: 'foodsnaps3',
+    Key: photoKey, // The key of the photo you want to retrieve
+  };
+
+  try {
+    const data = await s3.getObject(params).promise();
+    const imageBlob = data.Body;
+    const imageUrl = URL.createObjectURL(new Blob([imageBlob]));
+
+    console.log('Photo retrieved successfully');
+    return imageUrl; // Return the URL of the retrieved photo
+  } catch (error) {
+    console.error('Error retrieving photo:', error);
+    throw error;
+  }
+};
