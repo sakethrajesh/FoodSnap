@@ -16,6 +16,7 @@ const s3 = new AWS.S3();
 export const uploadPhotoToS3 = async (photo) => {
 const response = await fetch(photo.name);
 const blob = await response.blob();
+const key = `photos/${Date.now()}-${photo.name}`;
   const params = {
     Bucket: 'foodsnaps3',
     Key: `photos/${Date.now()}-${photo.name}`,
@@ -26,28 +27,26 @@ const blob = await response.blob();
   try {
     const data = await s3.upload(params).promise();
     console.log('Photo uploaded successfully:', data.Location);
-    return data.Location; // Return the S3 URL of the uploaded photo
+    return key; // Return the S3 URL of the uploaded photo
   } catch (error) {
     console.error('Error uploading photo:', error);
     throw error;
   }
 };
 
-export const retrievePhotoFromS3 = async (photoKey) => {
+export const generatePreSignedUrl = async (objectKey) => {
+  console.log("Key: " + objectKey);
   const params = {
     Bucket: 'foodsnaps3',
-    Key: photoKey, // The key of the photo you want to retrieve
+    Key: objectKey,
+    Expires: 3600, // The URL will expire in 1 hour (adjust as needed)
   };
 
   try {
-    const data = await s3.getObject(params).promise();
-    const imageBlob = data.Body;
-    const imageUrl = URL.createObjectURL(new Blob([imageBlob]));
-
-    console.log('Photo retrieved successfully');
-    return imageUrl; // Return the URL of the retrieved photo
+    const url = await s3.getSignedUrlPromise('getObject', params);
+    return url;
   } catch (error) {
-    console.error('Error retrieving photo:', error);
-    throw error;
+    console.error('Error generating pre-signed URL:', error);
+    return null;
   }
 };

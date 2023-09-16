@@ -21,11 +21,11 @@ const Toolbar = () => {
                 <Text >Find Recipes</Text>
             </Pressable>
             <Divider bg="emerald.500" thickness="2" mx="2" orientation="vertical" />
-            <Pressable onPress={() => navigation.navigate("Recipes")} >
-                <Text >Dashboard</Text>
+            <Pressable onPress={() => navigation.navigate("Tinder")} >
+                <Text >Tinder</Text>
             </Pressable>
             <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
-            <Pressable onPress={() => navigation.navigate("Home")} >
+            <Pressable onPress={() => navigation.navigate("Login")} >
                 <Text >Logout</Text>
             </Pressable>
         </Flex>
