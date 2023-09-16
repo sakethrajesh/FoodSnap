@@ -12,9 +12,6 @@ COPY requirements.txt .
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire project to the container
-COPY . .
-
 # Set the environment variable
 ENV FLASK_APP=app.py
 
