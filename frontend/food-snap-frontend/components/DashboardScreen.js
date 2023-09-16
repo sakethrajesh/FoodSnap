@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native';
-import { NativeBaseProvider, } from "native-base";
-import RecipeListElement  from "./RecipeListElement.js";
+import { NativeBaseProvider, Icon, HStack, AddIcon, Stack, Button, Pressable,Text } from "native-base";
+import RecipeListElement from "./RecipeListElement.js";
 import Toolbar from './Toolbar.js';
+import { useNavigation } from "@react-navigation/native";
 
 
 const DashboardScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <NativeBaseProvider>
-    <View style={styles.container}>
-      <Toolbar></Toolbar>
-      <RecipeListElement></RecipeListElement>
-      <RecipeListElement></RecipeListElement>
-      <RecipeListElement></RecipeListElement>
-    </View>
-    </NativeBaseProvider>
+      <ScrollView style={styles.scrollView}>
+        {/* <View style={styles.container}> */}
+        <Toolbar></Toolbar>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+        <RecipeListElement></RecipeListElement>
+
+        {/* </View> */}
+      </ScrollView>
+      {/* put camera page instead of recipes page */}
+      <Pressable onPress={() => navigation.navigate("Recipes")} > 
+        <Button style={styles.button} onPress = {() => navigation.navigate("Recipes")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
+        </Button>
+      </Pressable>
+    </NativeBaseProvider >
   );
 };
 
@@ -28,22 +44,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 20,
+  scrollView: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginVertical: 50
   },
-  uploadButton: {
-    marginBottom: 20,
-  },
-  input: {
-    width: 300,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 10,
+
+
+  button: {
+    backgroundColor: '#29C5F6',
+    width: 66,
+    height: 66,
+    borderRadius: 33,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    left: 20
+
   },
 });
 

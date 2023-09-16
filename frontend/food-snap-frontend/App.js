@@ -23,10 +23,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} />
-        <Stack.Screen name="Recipes" component={RecipeCard} />
-        <Stack.Screen name="Toolbar" component={Toolbar} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+        <Stack.Screen  options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen   options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
+        <Stack.Screen  options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,27 +4,30 @@ import React, { useState } from 'react';
 import {
     Divider, Text,
     Flex,
-    Box,
+    Box, Pressable,
 } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 
-const Toolbar = ()=> {
+const Toolbar = () => {
 
     const navigation = useNavigation();
 
-    const handleSelect = () => {
-        // Implement your login logic here
-        navigation.navigate("Recipes"); // Redirect to the dashboard or next screen
-      };
+
 
     return <Box alignItems="center">
         <Flex direction="row" h="58" p="4">
-            <Text onClick={handleSelect}>Find Recipes</Text>
+            <Pressable onPress={() => navigation.navigate("Recipes")} >
+                <Text >Find Recipes</Text>
+            </Pressable>
             <Divider bg="emerald.500" thickness="2" mx="2" orientation="vertical" />
-            <Text  onClick={handleSelect}>Dashboard</Text>
+            <Pressable onPress={() => navigation.navigate("Recipes")} >
+                <Text >Dashboard</Text>
+            </Pressable>
             <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
-            <Text onClick={handleSelect}>Logout</Text>
+            <Pressable onPress={() => navigation.navigate("Home")} >
+                <Text >Logout</Text>
+            </Pressable>
         </Flex>
     </Box>;
 };
