@@ -13,7 +13,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-picker';
 import DashboardScreen from './components/DashboardScreen';
 import HomeScreen from './components/HomeScreen';
-
+import RecipeCard from './components/RecipeCard';
+import Toolbar from './components/Toolbar';
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,8 @@ const App = () => {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="Recipes" component={RecipeCard} />
+        <Stack.Screen name="Toolbar" component={Toolbar} />
       </Stack.Navigator>
     </NavigationContainer>
   );
