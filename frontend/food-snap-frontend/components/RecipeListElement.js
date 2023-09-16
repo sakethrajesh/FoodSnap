@@ -17,7 +17,7 @@ const RecipeListElement = () => {
     return (
         // <NativeBaseProvider>
         <Box alignItems="center">
-            <Pressable onPress={() => navigation.navigate("Recipes")} rounded="8" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
+            <Pressable onPress={() => navigation.navigate("Recipes")} >
             <Box rounded="8" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
 
                 <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
@@ -55,31 +55,6 @@ const RecipeListElement = () => {
 
 };
 
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   avatar: {
-//     width: 100,
-//     height: 100,
-//     borderRadius: 50,
-//     marginBottom: 20,
-//   },
-//   uploadButton: {
-//     marginBottom: 20,
-//   },
-//   input: {
-//     width: 300,
-//     height: 40,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginBottom: 20,
-//     paddingLeft: 10,
-//   },
-// });
 
 
 export default RecipeListElement;

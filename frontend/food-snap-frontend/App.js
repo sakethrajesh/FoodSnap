@@ -15,7 +15,7 @@ import DashboardScreen from './components/DashboardScreen';
 import HomeScreen from './components/HomeScreen';
 import RecipeCard from './components/RecipeCard';
 import Toolbar from './components/Toolbar';
-
+import RecipeDetails from './components/RecipeDetails';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +27,7 @@ const App = () => {
         <Stack.Screen  options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
         <Stack.Screen   options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
         <Stack.Screen  options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
+        <Stack.Screen  options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

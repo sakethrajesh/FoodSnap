@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
-import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack, SectionList } from "native-base";
+import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack,  InfoIcon } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
 const RecipeSteps = () => {
@@ -35,6 +35,8 @@ const RecipeSteps = () => {
                         Preheat Oven
                         Roast Chicken
                     </Text>
+                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details")} endIcon={<InfoIcon sname="add" size="sm" />}>
+                    </Button>
                 </Stack>
 
             </Stack>
@@ -56,6 +58,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 50
     },
+    button: {
+        backgroundColor: '#29C5F6',
+        width: 33,
+        height: 33,
+        borderRadius: 33,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 20,
+        right: 10
+    
+      },
 
 });
 
