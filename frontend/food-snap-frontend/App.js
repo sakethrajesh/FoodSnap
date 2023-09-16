@@ -18,6 +18,7 @@ import LoadingBar from './components/LoadingBar';
 import RecipeCard from './components/RecipeCard';
 import Toolbar from './components/Toolbar';
 import RecipeDetails from './components/RecipeDetails';
+import TinderSwipe from './components/TinderSwipe';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,8 @@ const App = () => {
           <Stack.Screen options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
           <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen}/>
           <Stack.Screen options={{ headerShown: false }} name="ProgressBar" component={LoadingBar}/>
-        <Stack.Screen  options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
+          <Stack.Screen options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
+          <Stack.Screen options={{ headerShown: false }} name="Tinder" component={TinderSwipe} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
