@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,9 +8,34 @@ import { NativeBaseProvider, Icon, HStack, AddIcon, Stack, Button, Pressable,Tex
 import RecipeListElement from "./RecipeListElement.js";
 import Toolbar from './Toolbar.js';
 import { useNavigation } from "@react-navigation/native";
+import axios from 'axios';
+
+
 
 
 const DashboardScreen = () => {
+
+  const [recipes, setRecipes] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  useEffect(() => {
+    const apiUrl = 'http://107.21.84.60/get_user/hello_world';
+    axios.get(apiUrl)
+      .then(response => {
+        // Handle the response data here
+        console.log('Response:', response.data);
+        // console.log('data!!!:', response.data.recipes);
+        setRecipes(response.data.recipes);
+        setProfilePicture(response.data.profile_image_url);
+        // console.log(recipes)
+        // console.log(recipes)
+
+      })
+      .catch(error => {
+        // Handle any errors here
+        console.error('Error:', error);
+      });
+  }, []);
   const navigation = useNavigation();
 
   return (
@@ -18,13 +43,15 @@ const DashboardScreen = () => {
       <ScrollView style={styles.scrollView}>
         {/* <View style={styles.container}> */}
         <Toolbar></Toolbar>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
-        <RecipeListElement></RecipeListElement>
+        
+
+        {recipes ? recipes.map((item, index) => {
+          return (
+            <RecipeListElement key={index} imageUrl={item["image_url"]} title={item["name"]} dateCreated={new Date().getFullYear} profilePicture={profilePicture}> </RecipeListElement>
+          )
+        }) : <Text>Hello World</Text>}
+        
+
 
         {/* </View> */}
       </ScrollView>
