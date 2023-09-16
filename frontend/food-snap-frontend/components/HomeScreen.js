@@ -48,9 +48,7 @@ const HomeScreen = ({ navigation }) => {
       } catch (error) {
         console.error('Error storing user data:', error);
       }
-        navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
-
-    //   console.log(`Username: ${username}, Password: ${password}`);
+    navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
     };
   
     return (
