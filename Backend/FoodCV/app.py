@@ -166,7 +166,7 @@ def add_friend(username):
 def get_users():
     try:
         # Retrieve the first 25 users from the collection
-        users = users_collection.find().limit(25)
+        users = users_collection.find({"recipes": {"$exists": True, "$ne": []}}).limit(25)
 
         # Convert the cursor to a list of user documents
         user_list = list(users)
