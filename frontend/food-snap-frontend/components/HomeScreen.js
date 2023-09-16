@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,16 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { useAuth } from './AuthContext'; // Import the useAuth hook
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const HomeScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [avatarSource, setAvatarSource] = useState(null);
+    const { login } = useAuth(); // Destructure the login function from the context
+
   
     const handleImagePicker = () => {
       const options = {
@@ -36,10 +39,18 @@ const HomeScreen = ({ navigation }) => {
       });
     };
   
-    const handleLogin = () => {
+    const handleLogin = async () => {
       // Implement your login logic here
-      console.log(`Username: ${username}, Password: ${password}`);
-      navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
+      const userData = {username}
+      login(userData);
+        try {
+         await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      } catch (error) {
+        console.error('Error storing user data:', error);
+      }
+        navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
+
+    //   console.log(`Username: ${username}, Password: ${password}`);
     };
   
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,19 +13,25 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-picker';
 import DashboardScreen from './components/DashboardScreen';
 import HomeScreen from './components/HomeScreen';
-
+import { useAuth, AuthProvider } from './components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CameraScreen from './components/CameraScreen';
 
 
 const Stack = createStackNavigator();
 
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="CameraScreen">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Dashboard" component={DashboardScreen} />
+          <Stack.Screen name="CameraScreen" component={CameraScreen}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 
