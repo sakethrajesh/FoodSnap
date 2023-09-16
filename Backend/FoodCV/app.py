@@ -31,9 +31,9 @@ def getReciepes():
 @app.route('/api/getIngredients', methods=['GET','POST'])
 def getIngredients():
     image = request.files['image']
-    stuff = image.save(os.path.join(image.filename))
+    stuff = image.save(os.path.join('stuff.jpeg'))
     
-    results = model(stuff) 
+    results = model('stuff.jpeg') 
 
     result = results[0]
     bboxes = result.boxes.xyxy.cpu().tolist()
