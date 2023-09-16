@@ -25,7 +25,7 @@ const Toolbar = () => {
                 <Text >Tinder</Text>
             </Pressable>
             <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
-            <Pressable onPress={() => navigation.navigate("Home")} >
+            <Pressable onPress={() => navigation.navigate("Login")} >
                 <Text >Logout</Text>
             </Pressable>
         </Flex>
