@@ -29,10 +29,8 @@ const DashboardScreen = () => {
         {/* </View> */}
       </ScrollView>
       {/* put camera page instead of recipes page */}
-      <Pressable onPress={() => navigation.navigate("Recipes")} > 
-        <Button style={styles.button} onPress = {() => navigation.navigate("Recipes")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
-        </Button>
-      </Pressable>
+      <Button style={styles.button} onPress = {() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
+      </Button>
     </NativeBaseProvider >
   );
 };

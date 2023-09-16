@@ -20,6 +20,7 @@ const blob = await response.blob();
     Bucket: 'foodsnaps3',
     Key: `photos/${Date.now()}-${photo.name}`,
     Body: blob, // The photo file   
+    ContentType: "image/png",
   };
 
   try {
