@@ -43,7 +43,7 @@ const RecipeIngredients = () => {
               </View>
             )}
             renderSectionHeader={({ section: { title } }) => (
-              <Text style={styles.header}>{title}</Text>
+              <Text  style={styles.header}>{title} </Text>
             )}
           />
         </Stack>
@@ -70,11 +70,12 @@ const styles = StyleSheet.create({
     marginVertical: 3,
   },
   header: {
-    backgroundColor: "coolGray.600",
+    borderRadius: 33,
     fontSize: 28,
     marginBottom: 10,
 
   },
+
 
 });
 
