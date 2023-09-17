@@ -120,7 +120,7 @@ def getIngredients():
         f.write(response.content)
 
     # Perform your image processing here (assuming 'model' is defined elsewhere)
-    results = model('stuff.jpeg')
+    results = model('stuff.jpeg', conf=0.1)
 
     result = results[0]
     bboxes = result.boxes.xyxy.cpu().tolist()
