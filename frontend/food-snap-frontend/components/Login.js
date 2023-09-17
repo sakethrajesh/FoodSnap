@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, setUserName }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
-  
+
 
   const handleLogin = async () => {
     console.log(`Username: ${username}, Password: ${password}`);
@@ -25,10 +25,10 @@ const Login = ({ navigation }) => {
       .then(response => {
         // Handle success, you can access the response data using response.data
         if (response.data.password == password) {
-            navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
+          navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
         } else {
-            console.log("Wrong password!!")
-            setErrorMessage("Wrong password!!")
+          console.log("Wrong password!!")
+          setErrorMessage("Wrong password!!")
         }
 
       })
@@ -39,16 +39,17 @@ const Login = ({ navigation }) => {
         setErrorMessage(`${username} user doesn't exist`)
 
       });
+    setUserName(username)
   };
   const click = async () => {
     navigation.navigate('Home'); // Redirect to the dashboard or next screen
   };
   return (
     <View style={styles.container}>
-    <Text style={styles.h1}>Login</Text>
-        {errorMessage ? 
-        <Text>{errorMessage}</Text>: <></>}
-      <View style={{marginTop: 30}}>
+      <Text style={styles.h1}>Login</Text>
+      {errorMessage ?
+        <Text>{errorMessage}</Text> : <></>}
+      <View style={{ marginTop: 30 }}>
         <TextInput
           style={styles.input}
           placeholder="Username"

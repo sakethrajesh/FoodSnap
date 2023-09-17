@@ -12,6 +12,7 @@ import concurrent.futures
 import requests
 import cv2
 import mediapipe as mp
+import re
 
 # Initialize Mediapipe Hands
 mp_hands = mp.solutions.hands
@@ -107,10 +108,19 @@ def getReciepes():
 # make an endpoint that is called get ingedients
 @app.route('/api/getIngredients', methods=['GET','POST'])
 def getIngredients():
-    image = request.files['image']
-    stuff = image.save(os.path.join('stuff.jpeg'))
-    
-    results = model('stuff.jpeg') 
+    data = request.get_json()
+    image_url = data.get('image_url')
+
+    # Fetch the image from the URL
+    response = requests.get(image_url)
+    response.raise_for_status()  # Raise an exception if the request fails
+
+    # Save the image temporarily
+    with open('stuff.jpeg', 'wb') as f:
+        f.write(response.content)
+
+    # Perform your image processing here (assuming 'model' is defined elsewhere)
+    results = model('stuff.jpeg')
 
     result = results[0]
     bboxes = result.boxes.xyxy.cpu().tolist()
@@ -157,7 +167,7 @@ def generateRecipe():
 
     prompt = PromptTemplate(template=template, input_variables=["sentence"])
 
-    llm = OpenAI(openai_api_key='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')
+    llm = OpenAI(openai_api_key='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')
 
     llm_chain = LLMChain(prompt=prompt, llm=llm)
 
@@ -167,11 +177,92 @@ def generateRecipe():
     thing.append(llm_chain(sentence))
     thing.append(llm_chain(sentence))
     thing.append(llm_chain(sentence))
-
     print(thing, flush=True)
+
+    my_arr = []
+
+    try:
+        # Extract the name
+        name_match = re.search(r'^\d+\.\s+(.*?)\s*$', thing[0]["text"], re.MULTILINE)
+        name = name_match.group(1)
+
+        # Extract the ingredients
+        ingredients_match = re.search(r'2\. Ingredients:(.*?)3\. Steps:', thing[0]["text"], re.DOTALL)
+        ingredients_text = ingredients_match.group(1)
+        ingredients = [ingredient.strip() for ingredient in ingredients_text.split('\n') if ingredient.strip() != ""]
+
+        # Extract the steps
+        steps_match = re.search(r'3\. Steps:(.*?)$', thing[0]["text"], re.DOTALL)
+        steps_text = steps_match.group(1)
+        steps = [step.strip() for step in steps_text.split('\n') if step.strip() != ""]
+
         
+        my_dict = {}
+        my_dict["name"] = name
+        my_dict["ingredients"] = ingredients
+        my_dict["steps"] = steps
+        my_arr.append(my_dict)
+    except:
+        print("error")
+
+
+    try:
+        # Extract the name
+        name_match = re.search(r'^\d+\.\s+(.*?)\s*$', thing[1]["text"], re.MULTILINE)
+        name = name_match.group(1)
+
+        # Extract the ingredients
+        ingredients_match = re.search(r'2\. Ingredients:(.*?)3\. Steps:', thing[1]["text"], re.DOTALL)
+        ingredients_text = ingredients_match.group(1)
+        ingredients = [ingredient.strip() for ingredient in ingredients_text.split('\n') if ingredient.strip() != ""]
+
+        # Extract the steps
+        steps_match = re.search(r'3\. Steps:(.*?)$', thing[1]["text"], re.DOTALL)
+        steps_text = steps_match.group(1)
+        steps = [step.strip() for step in steps_text.split('\n') if step.strip() != ""]
+
+        
+        my_dict = {}
+        my_dict["name"] = name
+        my_dict["ingredients"] = ingredients
+        my_dict["steps"] = steps
+        my_arr.append(my_dict)
+    except:
+        print("error")
     
-    return jsonify({"recipies": thing})
+
+    #######
+    #######
+    try:
+        # Extract the name
+        name_match = re.search(r'^\d+\.\s+(.*?)\s*$', thing[2]["text"], re.MULTILINE)
+        name = name_match.group(1)
+
+        # Extract the ingredients
+        ingredients_match = re.search(r'2\. Ingredients:(.*?)3\. Steps:', thing[2]["text"], re.DOTALL)
+        ingredients_text = ingredients_match.group(1)
+        ingredients = [ingredient.strip() for ingredient in ingredients_text.split('\n') if ingredient.strip() != ""]
+
+        # Extract the steps
+        steps_match = re.search(r'3\. Steps:(.*?)$', thing[2]["text"], re.DOTALL)
+        steps_text = steps_match.group(1)
+        steps = [step.strip() for step in steps_text.split('\n') if step.strip() != ""]
+
+        
+        my_dict = {}
+        my_dict["name"] = name
+        my_dict["ingredients"] = ingredients
+        my_dict["steps"] = steps
+        my_arr.append(my_dict)
+    except:
+        print("error")
+
+    
+
+
+
+   
+    return jsonify({"recipies": my_arr})
 
 
 

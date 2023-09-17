@@ -9,23 +9,52 @@ import { useNavigation } from "@react-navigation/native";
 import Toolbar from './Toolbar.js';
 import TinderCard from 'react-tinder-card'
 import RecipeCard from './RecipeCard.js'
-import GraphCard from './GraphCard.js'
 
-const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
+import axios from 'axios';
+
+const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userName }) => {
     const navigation = useNavigation();
+
+    const addRecipe = async () => {
+        try {
+            console.log(userName)
+            const userString = userName
+            const url = "http://107.21.84.60/add_recipe/"+ userString;
+            console.log(url)
+            const data = {
+                name: name,
+                category: "N/A",
+                image_url: imageurl,
+                steps: recipeSteps,
+                ingredients: listOfIngredients
+            };
+
+            const response = await axios.post(url, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            // Handle the response here
+            console.log('Response:', response.data);
+        } catch (error) {
+            // Handle errors here
+            console.error('Error:', error);
+        }
+    };
 
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
-        if(direction == 'right'){
-
+        if (direction == 'right') {
             navigation.navigate("Recipes", {
                 image_url: imageurl,
                 ingredients: listOfIngredients,
                 steps: recipeSteps,
                 name: 'chicken parm'
-
-              }); //need to fix this ughhh
+                
+            }); //need to fix this ughhh
+            addRecipe()
         }
     }
 
@@ -36,17 +65,23 @@ const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
     return (
         <View style={styles.scrollView}>
 
-        <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-            <RecipeCard  imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-        </TinderCard>
-           <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-           <RecipeCard imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-       </TinderCard>
-          <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-          <RecipeCard  imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-      </TinderCard>
-        
-      </View>
+            {names.map((name, index) => (
+                <TinderCard
+                key={index}
+                onSwipe={onSwipe}
+                onCardLeftScreen={() => onCardLeftScreen(name)}
+                preventSwipe={['up', 'down']}
+                >
+                    <RecipeCard
+                        imageurl={imageurl}
+                        listOfIngredients={listOfIngredients[index]}
+                        recipeSteps={recipeSteps[index]}
+                        name={name}
+                    ></RecipeCard>
+                </TinderCard>
+            ))}
+
+        </View>
     )
 }
 const styles = StyleSheet.create({
@@ -60,7 +95,7 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         marginHorizontal: 10,
-        
+
         marginVertical: 50
     },
 

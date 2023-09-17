@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecipeImage = ({image_url, name}) => {
     const navigation = useNavigation();
+    console.log("this name, ", name);
 
 
     return (

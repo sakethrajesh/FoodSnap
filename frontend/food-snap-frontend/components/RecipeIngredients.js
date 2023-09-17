@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecipeIngredients = ({ ingredients }) => {
   const navigation = useNavigation();
+  console.log(ingredients);
   const INGREDIENTS = [
     {
       title: 'Ingredients',
@@ -34,7 +35,11 @@ const RecipeIngredients = ({ ingredients }) => {
     }}>
       <Stack p="4" space={3}>
         <Text style={styles.header}>Ingredients </Text>
+        <ScrollView>
         <Text style={styles.title}>{ingredients}</Text>
+          
+        </ScrollView>
+        
         {/* <SectionList
           sections={INGREDIENTS}
           keyExtractor={(item, index) => item + index}
