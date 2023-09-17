@@ -15,6 +15,8 @@ import axios from 'axios';
 const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userName }) => {
     const navigation = useNavigation();
 
+    const [currentElement, setCurrentElement] = useState(0);
+
     const addRecipe = async () => {
         try {
             console.log(userName)
@@ -45,13 +47,14 @@ const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userNam
 
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
+        // console.log("asjkdaksjd", index)
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
         if (direction == 'right') {
             navigation.navigate("Recipes", {
                 image_url: imageurl,
-                ingredients: listOfIngredients,
-                steps: recipeSteps,
-                name: 'chicken parm'
+                ingredients: listOfIngredients[currentElement],
+                steps: recipeSteps[currentElement],
+                name: names[currentElement]
                 
             }); //need to fix this ughhh
             addRecipe()
@@ -60,6 +63,7 @@ const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userNam
 
     const onCardLeftScreen = (myIdentifier) => {
         console.log(myIdentifier + ' left the screen')
+        setCurrentElement((x) => (x + 1))
     }
 
     return (

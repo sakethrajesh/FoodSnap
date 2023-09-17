@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecipeIngredients = ({ ingredients }) => {
   const navigation = useNavigation();
-  console.log(ingredients);
+  console.log("WE IN HERE", ingredients);
   const INGREDIENTS = [
     {
       title: 'Ingredients',

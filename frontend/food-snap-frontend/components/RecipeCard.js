@@ -28,9 +28,10 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     } else {
         try {
             image_url = route.params.image_url;
-            ingredients = route.params.ingredients;
-            steps = route.params.steps;
+            ingredients = route.params.ingredients.join("\r\n");
+            steps = route.params.steps.join("\r\n");
             _name = route.params.name;
+            console.log("name!!: ",_name)
             console.log("in here!!!");
         }
     
@@ -51,6 +52,7 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         }
         
     }
+
     
 
     return (
