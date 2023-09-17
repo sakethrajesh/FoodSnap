@@ -26,7 +26,7 @@ const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.scrollView}>
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
             <RecipeCard recipeSteps={recipeSteps}></RecipeCard>
         </TinderCard>
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         marginHorizontal: 10,
+        
         marginVertical: 50
     },
 

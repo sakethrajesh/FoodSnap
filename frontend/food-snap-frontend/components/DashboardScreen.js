@@ -14,6 +14,7 @@ import MainNavBar from './MainNavBar.js';
 
 
 
+
 const DashboardScreen = () => {
   const [people, setPeople] = useState(null);
 
@@ -62,6 +63,7 @@ const DashboardScreen = () => {
       {/* put camera page instead of recipes page */}
       <Button style={styles.button} onPress={() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
       </Button>
+      <Toolbar></Toolbar>
     </NativeBaseProvider >
   );
 };
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 20,
-    left: 20
+    bottom: 40,
+    left: 25
 
   },
 });

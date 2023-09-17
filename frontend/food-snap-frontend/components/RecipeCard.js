@@ -10,6 +10,7 @@ import RecipeSteps from "./RecipeSteps"
 import RecipeIngredients from "./RecipeIngredients"
 import RecipeImage from "./RecipeImage"
 import FoodPrefsBar from './FoodPrefsBar';
+import Toolbar from './Toolbar.js';
 
 const RecipeCard = ({imageurl, listOfIngredients, recipeSteps}) => {
     const navigation = useNavigation();
@@ -22,8 +23,7 @@ const RecipeCard = ({imageurl, listOfIngredients, recipeSteps}) => {
                 <RecipeImage></RecipeImage>
                 <RecipeIngredients></RecipeIngredients>
             </HStack>
-            <FoodPrefsBar></FoodPrefsBar>
-            <RecipeSteps recipeSteps={recipeSteps}></RecipeSteps>
+                <RecipeSteps></RecipeSteps>
             </View>
         </NativeBaseProvider>
 

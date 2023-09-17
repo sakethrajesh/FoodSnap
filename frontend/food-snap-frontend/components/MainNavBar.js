@@ -6,18 +6,37 @@ import {
 import { Text, Icon, HStack, Box, StatusBar, IconButton, MaterialIcons, Badge, Center, VStack, Menu, Image, Button } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import logo from "../assets/FoodSnapLogo.png";
+import {generatePreSignedUrl} from "../AWS/s3Utils.js"
 
-function MainNavBar() {
+function MainNavBar({ imageUrl, profilePicture }) {
     const navigation = useNavigation();
 
     const [shouldOverlapWithTrigger] = React.useState(false);
     const [position, setPosition] = React.useState("auto");
     const [people, setPeople] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState(null);
+    const [profile_image_url, setProfile_image_url] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVnZPLuYvrDxMg_xem78oxtALmdFuGq6cb4I1Edsd7qQ&s");
+
+    useEffect(() => {
+        const fetchPhoto = async () => {
+          try {
+            const imageUrl_ = await generatePreSignedUrl(imageUrl);
+            const profileUrl_ = await generatePreSignedUrl(profilePicture);
+            setPhotoUrl(imageUrl_);
+            setProfile_image_url(profileUrl_)
+          } catch (error) {
+            // Handle the error here
+            console.error('Error retrieving photo:', error);
+          }
+        };
+    
+        fetchPhoto();
+      }, [imageUrl, profilePicture]);
+    
 
     return <>
         <StatusBar bg="blue.200" barStyle="light-content" marginTop={50} />
-        {/* <Box safeAreaTop bg="blue.200" /> */}
-        <HStack bg="blue.200" px="1" py="4" justifyContent="space-between" alignItems="center" w="100%" >
+        <HStack bg="blue.200" px="1" py="2" justifyContent="space-between" alignItems="center" w="100%" >
             <HStack alignItems="center" >
                 <Badge bg="blue.200" marginTop={30}>
                     <Center>
@@ -41,8 +60,8 @@ function MainNavBar() {
             <Badge bg="blue.200" marginTop={30}>
                 <Center>
                     <Image size={60} borderRadius={100} source={{
-                        uri: "https://tastesbetterfromscratch.com/wp-content/uploads/2023/03/Chicken-Parmesan-1-500x500.jpg"
-                    }} alt="Alternate Text" />
+                        uri: profile_image_url
+                    }} alt="Profile Photo" />
                     <Text>Username</Text>
                 </Center>
             </Badge>

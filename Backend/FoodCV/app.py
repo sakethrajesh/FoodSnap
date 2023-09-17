@@ -157,7 +157,7 @@ def generateRecipe():
 
     detections = ''
 
-    question = f"generate a recipe with this list of ingredients ${ingredients} and use mostly the ingredients given"
+    question = f"generate a recipe with this list of ingredients ${ingredients} and use mostly the ingredients given, given the output with the ingredients you list used and number the steps"
 
     # thing = llm_chain.run(question)
 
@@ -233,6 +233,12 @@ def get_users():
         return parse_json(user_list)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+# api route that gets a picture based on dish that is passed in
+@app.route('/api/getPicture/<dish>', methods=['GET','POST'])
+def getPicture(dish):
+    return jsonify({"picture": "picture"})
 
 
 
