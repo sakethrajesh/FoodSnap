@@ -160,7 +160,7 @@ def generateRecipe():
 
     prompt = PromptTemplate(template=template, input_variables=["sentence"])
 
-    llm = OpenAI(openai_api_key='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')
+    llm = OpenAI(openai_api_key='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')
 
     llm_chain = LLMChain(prompt=prompt, llm=llm)
 
