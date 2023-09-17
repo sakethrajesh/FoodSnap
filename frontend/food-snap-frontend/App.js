@@ -42,7 +42,10 @@ const App = () => {
           <Stack.Screen options={{ headerShown: false }} name='Home'>
             {(props) => <HomeScreen {...props} setUserName={userNameCallBack} />}
           </Stack.Screen>
-          <Stack.Screen options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
+          {/* <Stack.Screen options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} /> */}
+          <Stack.Screen options={{ headerShown: false }} name='Dashboard'>
+            {(props) => <DashboardScreen {...props} userName={userName} />}
+          </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
           <Stack.Screen options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
           <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
