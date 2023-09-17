@@ -8,6 +8,7 @@ import pymongo
 from bson import json_util
 from langchain.llms import OpenAI
 from langchain import PromptTemplate, LLMChain
+import concurrent.futures
 
 app = Flask(__name__)
 connection_string = "mongodb+srv://poweruser:1PDanWORHzg7sVfj@vthacks2023.ymk3xof.mongodb.net/?retryWrites=true&w=majority"
@@ -138,6 +139,43 @@ def getIngredients():
         
     
     return jsonify({"recipies": thing})
+
+
+@app.route('/api/generateRecipe', methods=['POST'])
+def generateRecipe():
+    print("in here", flush=True)
+    ingredients = request.json.get('ingredients')
+
+    template = """Question: {question} 
+            Answer: Let's think step by step."""
+
+    prompt = PromptTemplate(template=template, input_variables=["question"])
+
+    llm = OpenAI(openai_api_key='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')
+
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+
+    detections = ''
+
+    question = f"generate a recipe with this list of ingredients ${ingredients} and use mostly the ingredients given"
+
+    # thing = llm_chain.run(question)
+
+    def run_llm_chain(question):
+        return llm_chain.run(question)
+    
+    thing = []
+    thing.append(run_llm_chain(question))
+    # thing.append(run_llm_chain(question))
+    # thing.append(run_llm_chain(question))
+    print(thing, flush=True)
+        
+    
+    return jsonify({"recipies": thing})
+
+
+
+
 
 # make an endpoint for the frontend to send the image to backend
 @app.route('/api/upload', methods=['POST'])
