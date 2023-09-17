@@ -7,7 +7,8 @@ import * as Permissions from 'expo-permissions';
 import { uploadPhotoToS3 } from '../AWS/s3Utils';
 let camera;
 
-export default function CameraScreen({ navigation }) {
+export default function CameraScreen({ navigation, userName }) {
+  console.log(userName);
     const [startCamera, setStartCamera] = React.useState(false)
     const [previewVisible, setPreviewVisible] = React.useState(false)
     const [capturedImage, setCapturedImage] = React.useState(null)
@@ -73,7 +74,7 @@ export default function CameraScreen({ navigation }) {
         MediaLibrary.saveToLibraryAsync(capturedImage.uri)
         const s3Key = await handlePhotoUpload(capturedImage.uri, capturedImage.base64)
         
-        navigation.navigate('ProgressBar', {imageKey: s3Key}); // Redirect to the dashboard or next screen
+        navigation.navigate('ProgressBar', {imageKey: s3Key, userName: userName}); // Redirect to the dashboard or next screen
 
 
     }

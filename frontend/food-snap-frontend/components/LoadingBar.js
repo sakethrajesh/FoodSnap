@@ -10,12 +10,14 @@ import { useRoute } from "@react-navigation/native";
 const LoadingBar = ({ navigation }) => {
     const route = useRoute();
     var imageKey = route.params.imageKey;
+    var userName = route.params.userName;
 
     const [progress, setProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [steps, setSteps] = useState(null)
     const [ingredients, setIngredients] = useState({});
     const [names, setNames] = useState(null)
+    const [pictures, setPictures]  = useState(null)
 
     useEffect(() => {
 
@@ -63,17 +65,50 @@ const LoadingBar = ({ navigation }) => {
               stepsArray.push(item.steps);
             });
 
-            console.log(ingredientsArray)
-            console.log(namesArray)
-            console.log(stepsArray)
+            const pictureUrlArray = [];
+
+            const promises = namesArray.map(item => {
+              const apiUrl = `http://107.21.84.60/api/getPicture/${item.replace(/ /g, '-')}`;
+              
+              return axios.get(apiUrl)
+                .then(response => {
+                  // Handle the response data here
+                  console.log('Response:', response.data);
+                  return response.data["picture_url"];
+                })
+                .catch(error => {
+                  // Handle any errors here
+                  console.error('Error:', error);
+                  return null; // You can decide how to handle errors
+                });
+            });
+
+            Promise.all(promises)
+              .then(pictureUrls => {
+                // All requests have completed successfully, and pictureUrls is an array of results.
+                console.log('All requests completed');
+                console.log(ingredientsArray)
+                console.log(namesArray)
+                console.log(stepsArray)
+                console.log(pictureUrls)
+
+                setPictures(pictureUrls)
+                setSteps(stepsArray);
+                setIngredients(ingredientsArray)
+                setNames(namesArray)
+                setProgress((x) => x + .5);
+                setIsLoading(false);
+                console.log("current steps: ",steps);
+              })
+              .catch(error => {
+                // Handle errors from Promise.all, if any
+                console.error('Promise.all Error:', error);
+              });
 
 
-            setSteps(stepsArray);
-            setIngredients(ingredientsArray)
-            setNames(namesArray)
-            setProgress((x) => x + .5);
-            setIsLoading(false);
-            console.log("current steps: ",steps);
+            
+
+            
           })
           .catch((error) => {
             console.error('Error:', error);
@@ -91,7 +126,7 @@ const LoadingBar = ({ navigation }) => {
     return (
       <>
       {steps && ingredients && names ? 
-      <RecipeTinder recipeSteps={steps} listOfIngredients={ingredients} names={names} ></RecipeTinder>  : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <RecipeTinder userName={userName} recipeSteps={steps} imageurls={pictures} listOfIngredients={ingredients} names={names} ></RecipeTinder>  : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <ProgressCircle
       progress={progress}
       size={300}

@@ -48,8 +48,14 @@ const App = () => {
           </Stack.Screen>
           <Stack.Screen options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
           <Stack.Screen options={{ headerShown: false }} name="Toolbar" component={Toolbar} />
-          <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="CameraScreen" >
+            {(props) => <CameraScreen {...props} userName={userName} />}
+
+          </Stack.Screen>
+
           <Stack.Screen options={{ headerShown: false }} name="ProgressBar" component={LoadingBar} />
+          
+
           <Stack.Screen options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
           <Stack.Screen options={{ headerShown: false }} name='Tinder'>
             {(props) => <TinderSwipe {...props} userName={userName} />}

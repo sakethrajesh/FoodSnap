@@ -16,7 +16,8 @@ import Toolbar from './Toolbar.js';
 const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     const navigation = useNavigation();
     const route = useRoute();
-    var image_url = '';
+
+    var _image_url = '';
     var ingredients = '';
     var steps = '';
     var _name = '';
@@ -24,10 +25,11 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         ingredients = listOfIngredients.join("\r\n");
         steps = recipeSteps;
         _name = name;
+        _image_url = imageurl
 
     } else {
         try {
-            image_url = route.params.image_url;
+            _image_url = route.params.image_url;
             ingredients = route.params.ingredients.join("\r\n");
             steps = route.params.steps.join("\r\n");
             _name = route.params.name;
@@ -37,14 +39,14 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     
         catch {
             try {
-                image_url = imageurl;
+                _image_url = imageurl;
                 ingredients = listOfIngredients.join("\r\n");
                 steps = recipeSteps;
                 _name = name;
             }
             catch {
                 //should change this catch to be the props
-                image_url = "https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png";
+                _image_url = "https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png";
                 ingredients = "ingredie"
                 steps = "steps"
                 _name = "chick"
@@ -52,6 +54,7 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         }
         
     }
+    console.log("_image", _image_url)
 
     
 
@@ -59,7 +62,7 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         <NativeBaseProvider>
             <View style={styles.container}>
                 <HStack space={2} justifyContent="center">
-                    <RecipeImage name={_name} image_url={image_url}></RecipeImage>
+                    <RecipeImage name={_name} image_url={_image_url}></RecipeImage>
                     <RecipeIngredients ingredients={ingredients}></RecipeIngredients>
                 </HStack>
                 <RecipeSteps steps={steps}></RecipeSteps>

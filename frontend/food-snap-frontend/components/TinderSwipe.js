@@ -12,37 +12,40 @@ import RecipeCard from './RecipeCard.js'
 
 import axios from 'axios';
 
-const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userName }) => {
+const RecipeTinder = ({ imageurls, listOfIngredients, recipeSteps, names, userName }) => {
     const navigation = useNavigation();
 
     const [currentElement, setCurrentElement] = useState(0);
 
     const addRecipe = async () => {
-        try {
-            console.log(userName)
-            const userString = userName
-            const url = "http://107.21.84.60/add_recipe/"+ userString;
-            console.log(url)
-            const data = {
-                name: name,
-                category: "N/A",
-                image_url: imageurl,
-                steps: recipeSteps,
-                ingredients: listOfIngredients
+
+            const apiUrl = `http://107.21.84.60/add_recipe/${userName}`;
+
+            const requestData = {
+                name: 'New Recipe',
+                category: 'Dessert',
+                image_url: 'https://foodsnaps3.s3.amazonaws.com/Good_Food_Display_-_NCI_Visuals_Online.jpg',
+                steps: ['Step 1', 'Step 2', 'Step 3'],
+                ingredients: ['Ingredient 1', 'Ingredient 2'],
             };
 
-            const response = await axios.post(url, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            axios({
+            method: 'post',
+            url: apiUrl,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: requestData,
+            })
+            .then((response) => {
+                // Handle success
+                console.log('Recipe added successfully:', response.data);
+            })
+            .catch((error) => {
+                // Handle error
+                console.error('Error adding recipe:', error);
             });
 
-            // Handle the response here
-            console.log('Response:', response.data);
-        } catch (error) {
-            // Handle errors here
-            console.error('Error:', error);
-        }
     };
 
     const onSwipe = (direction) => {
@@ -51,7 +54,7 @@ const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userNam
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
         if (direction == 'right') {
             navigation.navigate("Recipes", {
-                image_url: imageurl,
+                image_url: imageurls[currentElement],
                 ingredients: listOfIngredients[currentElement],
                 steps: recipeSteps[currentElement],
                 name: names[currentElement]
@@ -77,7 +80,7 @@ const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userNam
                 preventSwipe={['up', 'down']}
                 >
                     <RecipeCard
-                        imageurl={imageurl}
+                        imageurl={imageurls[index]}
                         listOfIngredients={listOfIngredients[index]}
                         recipeSteps={recipeSteps[index]}
                         name={name}
