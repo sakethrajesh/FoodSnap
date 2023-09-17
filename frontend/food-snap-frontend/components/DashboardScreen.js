@@ -36,24 +36,7 @@ const DashboardScreen = (userName) => {
   }, []);
   const navigation = useNavigation();
 
-  const getUserInfo = async () => {
 
-    const user = userName;
-    const apiUrl2 = `http://107.21.84.60/get_user/` + user;
-    console.log("AHHHHHHH" + apiUrl)
-    // Make the GET request using Axios
-    axios.get(apiUrl2)
-      .then(response => {
-        // Handle success, you can access the response data using response.data
-        console.log(apiUrl2.split)
-        return apiUrl2;
-      })
-      .catch(error => {
-        // Handle error
-        console.error(error);
-        console.log("User doesn't exist")
-      });
-  };
   const handleGetRecipeImage = () => {
 
   }
@@ -61,7 +44,7 @@ const DashboardScreen = (userName) => {
 
     <NativeBaseProvider>
       <Center>
-        <MainNavBar></MainNavBar>
+        <MainNavBar userName={userName} ></MainNavBar>
       </Center>
       <ScrollView style={styles.scrollView}>
 
@@ -72,8 +55,8 @@ const DashboardScreen = (userName) => {
                 key={index}
                 imageUrl={recipe["image_url"]}
                 name={recipe["name"]}
-                steps={recipe["steps"]}
                 ingredients={recipe["ingredients"]}
+                steps={recipe["steps"]}
                 title={item["name"]}
                 dateCreated={new Date().getFullYear()} // This should be a function call
                 profilePicture={item["profile_image_url"]}
@@ -104,7 +87,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginHorizontal: 10,
-    marginVertical: 50
+    marginVertical: 5
   },
 
 

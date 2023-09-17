@@ -10,11 +10,18 @@ from langchain.llms import OpenAI
 from langchain import PromptTemplate, LLMChain
 import concurrent.futures
 import requests
+import cv2
+import mediapipe as mp
 import re
 
+# Initialize Mediapipe Hands
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
+
 app = Flask(__name__)
+sock = Sock(app)
 connection_string = "mongodb+srv://poweruser:1PDanWORHzg7sVfj@vthacks2023.ymk3xof.mongodb.net/?retryWrites=true&w=majority"
-model = YOLO('yolov8n.pt')  # pretrained YOLOv8n model
+model = YOLO('best.pt')  # pretrained YOLOv8n model
 
 client = pymongo.MongoClient(connection_string)
 
@@ -338,6 +345,44 @@ def getPicture(dish):
 
     return jsonify({"picture_url": photos['urls']['regular']})
 
+# create a socket endpoint that revices an image and saves it
+@sock.route('/api/gesture')
+def uploadImage(ws):
+    while ws.connected:
+        # get the image from the frontend
+        image = ws.receive()
+        # save the image to the backend
+        image.save(os.path.join("hand.jpg"))
+
+        frame = cv2.imread("hand.jpg")
+
+        # Convert the BGR image to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Convert the BGR image to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Process the frame with Mediapipe Hands
+        results = hands.process(rgb_frame)
+
+        gesture = "none"
+        # Check if hands are detected
+        if results.multi_hand_landmarks:
+            for landmarks in results.multi_hand_landmarks:
+                # Calculate the position of the thumb (landmark 4) and index finger (landmark 8)
+                thumb_tip = landmarks.landmark[4]
+                index_tip = landmarks.landmark[8]
+
+                # Check the relative position of the thumb and index finger
+                if thumb_tip.y > index_tip.y:
+                    gesture = "Down"
+                else:
+                    gesture = "Up"
+
+        # return the image to the frontend
+        ws.send(gesture)
+
+    return jsonify({"image": image.filename})
 
 
 

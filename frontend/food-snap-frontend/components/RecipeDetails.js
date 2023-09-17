@@ -8,7 +8,7 @@ import { NativeBaseProvider, Box, Heading,ScrollView,  Stack,  } from "native-ba
 import { useNavigation } from "@react-navigation/native";
 import Toolbar from './Toolbar.js';
 
-const RecipeDetails = () => {
+const RecipeDetails = (steps) => {
     const navigation = useNavigation();
 
 
@@ -34,7 +34,7 @@ const RecipeDetails = () => {
                         }} _dark={{
                             color: "violet.400"
                         }} fontWeight="500" ml="-0.5" mt="-1">
-                          {steps}
+                          {steps["route"]["params"]["steps"]["steps"]}
                         </Text>
                     </Stack>
 

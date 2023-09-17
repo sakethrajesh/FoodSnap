@@ -22,8 +22,8 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     var _name = '';
     if (listOfIngredients !== undefined && listOfIngredients !== null && listOfIngredients.length !== 0) {
         ingredients = listOfIngredients.join("\r\n");
-        steps = recipeSteps
-        _name = name
+        steps = recipeSteps;
+        _name = name;
 
     } else {
         try {
@@ -38,9 +38,9 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         catch {
             try {
                 image_url = imageurl;
-                ingredients = listOfIngredients;
+                ingredients = listOfIngredients.join("\r\n");
                 steps = recipeSteps;
-                _name = "djdfjd";
+                _name = name;
             }
             catch {
                 //should change this catch to be the props
