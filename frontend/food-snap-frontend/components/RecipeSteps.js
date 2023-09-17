@@ -22,15 +22,12 @@ const RecipeSteps = ({ steps }) => {
         }} _light={{
             backgroundColor: "gray.50"
         }}>
-            <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details", { steps: steps })} endIcon={<InfoIcon sname="add" size="sm" />}>
-            </Button>
+
             <Stack p="4" space={3}>
                 <Stack space={2}>
                     <Heading size="md" ml="-1">
                         Steps:
                     </Heading>
-                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details", { steps: steps })} endIcon={<InfoIcon sname="add" size="sm" />}>
-                    </Button>
                     <ScrollView>
                         <Text fontSize="xs" _light={{
                             color: "violet.500"
@@ -40,6 +37,10 @@ const RecipeSteps = ({ steps }) => {
                             {steps}
                         </Text>
                     </ScrollView>
+                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details", {
+                        steps: {steps}
+                    })} endIcon={<InfoIcon name="add" size="sm" />}>
+                    </Button>
                 </Stack>
 
             </Stack>

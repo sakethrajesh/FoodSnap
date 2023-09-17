@@ -55,8 +55,8 @@ const DashboardScreen = (userName) => {
                 key={index}
                 imageUrl={recipe["image_url"]}
                 name={recipe["name"]}
-                steps={recipe["steps"]}
                 ingredients={recipe["ingredients"]}
+                steps={recipe["steps"]}
                 title={item["name"]}
                 dateCreated={new Date().getFullYear()} // This should be a function call
                 profilePicture={item["profile_image_url"]}
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginHorizontal: 10,
-    marginVertical: 50
+    marginVertical: 5
   },
 
 
