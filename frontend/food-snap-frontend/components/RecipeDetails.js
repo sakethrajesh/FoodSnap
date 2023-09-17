@@ -15,7 +15,6 @@ const RecipeDetails = () => {
     return (
         <NativeBaseProvider>
             <ScrollView style={styles.scrollView}>
-            <Toolbar></Toolbar>
             <Box width="100%" rounded="lg" overflow="hidden" borderColor="coolGray.200" height="100%" borderWidth="1" _dark={{
                 borderColor: "coolGray.600",
                 backgroundColor: "gray.700"
@@ -43,6 +42,7 @@ const RecipeDetails = () => {
                 </Stack>
             </Box>
             </ScrollView>
+            <Toolbar></Toolbar>
         </NativeBaseProvider>
 
     );
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     scrollView: {
         // flex: 1,
         marginHorizontal: 10,
-        marginVertical: 50,
+        marginVertical: 70,
    
     },
     button: {
