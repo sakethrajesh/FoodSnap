@@ -7,7 +7,7 @@ import {
 import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack,  InfoIcon } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const RecipeSteps = () => {
+const RecipeSteps = ({recipeSteps}) => {
     const navigation = useNavigation();
 
 
@@ -32,8 +32,7 @@ const RecipeSteps = () => {
                     }} _dark={{
                         color: "violet.400"
                     }} fontWeight="500" ml="-0.5" mt="-1">
-                        Preheat Oven
-                        Roast Chicken
+                        {recipeSteps}
                     </Text>
                     <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details")} endIcon={<InfoIcon sname="add" size="sm" />}>
                     </Button>

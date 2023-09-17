@@ -10,14 +10,13 @@ import Toolbar from './Toolbar.js';
 import TinderCard from 'react-tinder-card'
 import RecipeCard from './RecipeCard.js'
 
-const RecipeTinder = () => {
+const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
     const navigation = useNavigation();
 
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
         if(direction == 'right'){
-
             navigation.navigate("Recipes"); //need to fix this ughhh
         }
     }
@@ -27,9 +26,9 @@ const RecipeTinder = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.scrollView}>
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-            <RecipeCard></RecipeCard>
+            <RecipeCard recipeSteps={recipeSteps}></RecipeCard>
         </TinderCard>
            <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
            <RecipeCard></RecipeCard>
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         marginHorizontal: 10,
+        
         marginVertical: 50
     },
 

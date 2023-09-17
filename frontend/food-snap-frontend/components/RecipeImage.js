@@ -7,7 +7,7 @@ import {
 import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const RecipeImage = () => {
+const RecipeImage = ({imageurl, name}) => {
     const navigation = useNavigation();
 
 

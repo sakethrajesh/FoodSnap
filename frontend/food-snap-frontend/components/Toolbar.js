@@ -15,7 +15,7 @@ const Toolbar = () => {
 
 
 
-    return <Box alignItems="center">
+    return <Box alignItems="center" marginBottom={5}>
         <Flex direction="row" h="58" p="4">
             <Pressable onPress={() => navigation.navigate("Recipes")} >
                 <Text >Find Recipes</Text>
