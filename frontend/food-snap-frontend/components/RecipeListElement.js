@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { generatePreSignedUrl } from "../AWS/s3Utils.js"
 
 
-const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => {
+const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture, name, steps, ingredients}) => {
     const navigation = useNavigation();
     const [photoUrl, setPhotoUrl] = useState(null);
     const [profile_image_url, setProfile_image_url] = useState(null);
@@ -39,10 +39,10 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => 
         // <NativeBaseProvider>
         <Box alignItems="center">
             <Pressable onPress={() => navigation.navigate("Recipes", {
-                image_url: 'https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png',
-                ingredients: 'chicken \n beef \n corn \n stew \n avocados',
-                steps: 'prheat oven \n cook chicken \n boil sauce \n sprinkle seasoning',
-                name: 'chicken parm'
+                image_url: photoUrl,
+                ingredients: ingredients,
+                steps: steps,
+                name:name
 
             })} >
             <Box rounded="8" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
