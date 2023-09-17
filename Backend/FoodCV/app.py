@@ -116,30 +116,8 @@ def getIngredients():
     for cls, bbox in zip(classes, bboxes):
         (x1, y1, x2, y2) = bbox
         color = (0, 255, 0)
-        
-
-    ingredients[names[cls]] += 1
-
-    template = """Question: {question} 
-            Answer: Let's think step by step."""
-
-    prompt = PromptTemplate(template=template, input_variables=["question"])
-
-    llm = OpenAI(openai_api_key='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')
-
-    llm_chain = LLMChain(prompt=prompt, llm=llm)
-
-    detections = ''
-
-    question = f"generate a 3 recipes with this list of ingredients ${ingredients} and use mostly the ingredients given"
-
-    thing = llm_chain.run(question)
-
-    print(thing, flush=True)
-
-        
     
-    return jsonify({"recipies": thing})
+    return jsonify({"ingredients": ingredients})
 
 
 @app.route('/api/generateRecipe', methods=['POST'])
@@ -147,26 +125,36 @@ def generateRecipe():
     print("in here", flush=True)
     ingredients = request.json.get('ingredients')
 
-    template = """Question: {question} 
-            Answer: Let's think step by step."""
+    items = []
+    sentence = ''
+    for item, count in ingredients.items():
+        items.append(f"{count} {item}s")
 
-    prompt = PromptTemplate(template=template, input_variables=["question"])
+    if len(items) == 1:
+        sentence = f"I have {items[0]}."
+    elif len(items) == 2:
+        sentence = f"I have {items[0]} and {items[1]}."
+    else:
+        sentence = f"I have {', '.join(items[:-1])}, and {items[-1]}."
+
+
+    template = """${sentence}, generate 3 recipes. 
+                Structure the recipe as follows: 
+                1. Name of Dish 
+                2. Ingredients
+                3. Steps
+                """
+
+    prompt = PromptTemplate(template=template, input_variables=["sentence"])
 
     llm = OpenAI(openai_api_key='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')
 
     llm_chain = LLMChain(prompt=prompt, llm=llm)
 
-    detections = ''
-
-    question = f"generate a recipe with this list of ingredients ${ingredients} and use mostly the ingredients given, given the output with the ingredients you list used and number the steps"
-
     # thing = llm_chain.run(question)
-
-    def run_llm_chain(question):
-        return llm_chain.run(question)
     
     thing = []
-    thing.append(run_llm_chain(question))
+    thing.append(llm_chain.run(sentence))
     # thing.append(run_llm_chain(question))
     # thing.append(run_llm_chain(question))
     print(thing, flush=True)
