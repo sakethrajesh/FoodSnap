@@ -43,7 +43,6 @@ const RecipeDetails = (steps) => {
             </Box>
             <GraphCard></GraphCard>
             </ScrollView>
-            <Toolbar></Toolbar>
         </NativeBaseProvider>
 
     );

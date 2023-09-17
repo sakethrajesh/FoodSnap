@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { generatePreSignedUrl } from "../AWS/s3Utils.js"
 
 
-const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture, name, steps, ingredients}) => {
+const RecipeListElement = ({ userName,imageUrl, title, dateCreated, profilePicture, name, steps, ingredients}) => {
     const navigation = useNavigation();
     const [photoUrl, setPhotoUrl] = useState(null);
     const [profile_image_url, setProfile_image_url] = useState(null);
@@ -71,7 +71,7 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture, name,
                 </HStack>
                 <Flex>
                     <Text mt="2" fontSize={12} fontWeight="medium" color="darkBlue.600">
-                        Read More
+                        By {userName}
                     </Text>
                 </Flex>
             </Box>

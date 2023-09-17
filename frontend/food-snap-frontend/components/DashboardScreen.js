@@ -15,7 +15,8 @@ import MainNavBar from './MainNavBar.js';
 
 
 
-const DashboardScreen = (userName) => {
+const DashboardScreen = ({userName}) => {
+  console.log("USERNAME:", userName)
   const [people, setPeople] = useState(null);
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const DashboardScreen = (userName) => {
             return item.recipes.map((recipe, index) => (
               <RecipeListElement 
                 key={index}
+                userName={item["username"]}
                 imageUrl={recipe["image_url"]}
                 name={recipe["name"]}
                 ingredients={recipe["ingredients"]}
@@ -72,7 +74,6 @@ const DashboardScreen = (userName) => {
       {/* put camera page instead of recipes page */}
       <Button style={styles.button} onPress={() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
       </Button>
-      <Toolbar></Toolbar>
     </NativeBaseProvider >
   );
 };

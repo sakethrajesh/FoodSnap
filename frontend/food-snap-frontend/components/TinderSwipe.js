@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import Toolbar from './Toolbar.js';
 import TinderCard from 'react-tinder-card'
 import RecipeCard from './RecipeCard.js'
+import {uploadPhotoToS3} from '../AWS/s3Utils.js'
 
 import axios from 'axios';
 
@@ -20,13 +21,13 @@ const RecipeTinder = ({ imageurls, listOfIngredients, recipeSteps, names, userNa
     const addRecipe = async () => {
 
             const apiUrl = `http://107.21.84.60/add_recipe/${userName}`;
-
+            const imageKey = await uploadPhotoToS3({name: imageurls[currentElement]})
             const requestData = {
-                name: 'New Recipe',
-                category: 'Dessert',
-                image_url: 'https://foodsnaps3.s3.amazonaws.com/Good_Food_Display_-_NCI_Visuals_Online.jpg',
-                steps: ['Step 1', 'Step 2', 'Step 3'],
-                ingredients: ['Ingredient 1', 'Ingredient 2'],
+                name: names[currentElement],
+                category: 'N/A',
+                image_url: imageKey,
+                steps: recipeSteps[currentElement],
+                ingredients: listOfIngredients[currentElement],
             };
 
             axios({
@@ -54,7 +55,7 @@ const RecipeTinder = ({ imageurls, listOfIngredients, recipeSteps, names, userNa
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
         if (direction == 'right') {
             navigation.navigate("Recipes", {
-                image_url: imageurls[currentElement],
+                image_url: imageurls[currentElement + 1],
                 ingredients: listOfIngredients[currentElement],
                 steps: recipeSteps[currentElement],
                 name: names[currentElement]

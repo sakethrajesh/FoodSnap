@@ -20,11 +20,14 @@ import Toolbar from './components/Toolbar';
 import RecipeDetails from './components/RecipeDetails';
 import TinderSwipe from './components/TinderSwipe';
 import Login from './components/Login'
-
+// import dotenv from 'dotenv';
+// import 'dotenv/config'; // This line loads the environment variables from .env
 const Stack = createStackNavigator();
 
 
 const App = () => {
+  // dotenv.config();
+  // Load environment variables from .env
 
   const [userName, setUserName] = useState('');
 
