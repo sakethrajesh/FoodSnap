@@ -34,7 +34,7 @@ const RecipeSteps = ({steps}) => {
                     }} fontWeight="500" ml="-0.5" mt="-1">
                         {steps}
                     </Text>
-                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details",{ steps:steps})} endIcon={<InfoIcon sname="add" size="sm" />}>
+                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details", { steps:steps})} endIcon={<InfoIcon sname="add" size="sm" />}>
                     </Button>
                 </Stack>
 
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 20,
+        top: 20,
         right: 10
     
       },

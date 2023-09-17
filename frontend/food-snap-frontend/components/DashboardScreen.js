@@ -36,24 +36,7 @@ const DashboardScreen = (userName) => {
   }, []);
   const navigation = useNavigation();
 
-  const getUserInfo = async () => {
 
-    const user = userName;
-    const apiUrl2 = `http://107.21.84.60/get_user/` + user;
-    console.log("AHHHHHHH" + apiUrl)
-    // Make the GET request using Axios
-    axios.get(apiUrl2)
-      .then(response => {
-        // Handle success, you can access the response data using response.data
-        console.log(apiUrl2.split)
-        return apiUrl2;
-      })
-      .catch(error => {
-        // Handle error
-        console.error(error);
-        console.log("User doesn't exist")
-      });
-  };
   const handleGetRecipeImage = () => {
 
   }
@@ -61,7 +44,7 @@ const DashboardScreen = (userName) => {
 
     <NativeBaseProvider>
       <Center>
-        <MainNavBar></MainNavBar>
+        <MainNavBar userName={userName} ></MainNavBar>
       </Center>
       <ScrollView style={styles.scrollView}>
 
