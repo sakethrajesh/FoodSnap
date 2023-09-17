@@ -7,6 +7,7 @@ import {
 import { NativeBaseProvider, Box, Heading,ScrollView,  Stack,  } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import Toolbar from './Toolbar.js';
+import GraphCard from './GraphCard.js';
 
 const RecipeDetails = (steps) => {
     const navigation = useNavigation();
@@ -15,7 +16,7 @@ const RecipeDetails = (steps) => {
     return (
         <NativeBaseProvider>
             <ScrollView style={styles.scrollView}>
-            <Box width="100%" rounded="lg" overflow="hidden" borderColor="coolGray.200" height="100%" borderWidth="1" _dark={{
+            <Box marginTop={50} width="100%" rounded="lg" overflow="hidden" borderColor="coolGray.200" height="50%" borderWidth="1" _dark={{
                 borderColor: "coolGray.600",
                 backgroundColor: "gray.700"
             }} _web={{
@@ -40,6 +41,7 @@ const RecipeDetails = (steps) => {
 
                 </Stack>
             </Box>
+            <GraphCard></GraphCard>
             </ScrollView>
             <Toolbar></Toolbar>
         </NativeBaseProvider>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     scrollView: {
         // flex: 1,
         marginHorizontal: 10,
-        marginVertical: 70,
+        marginVertical: 10,
    
     },
     button: {

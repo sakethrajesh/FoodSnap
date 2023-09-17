@@ -23,32 +23,25 @@ const GraphCard = () => {
               uri: "https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png"
             }} alt="image" />
             </AspectRatio>
-            <Center bg="violet.500" _dark={{
-            bg: "violet.400"
-          }} _text={{
-            color: "warmGray.50",
-            fontWeight: "700",
-            fontSize: "xs"
-          }} position="absolute" bottom="0" px="3" py="1.5">
-              PHOTOS
-            </Center>
+ 
           </Box>
           <Stack p="4" space={3}>
             <Stack space={2}>
               <Heading size="md" ml="-1">
-                The Garden City
+                Waste Saved
               </Heading>
               <Text fontSize="xs" _light={{
               color: "violet.500"
             }} _dark={{
               color: "violet.400"
             }} fontWeight="500" ml="-0.5" mt="-1">
-                The Silicon Valley of India.
+                Visualization of the Waste you've saved with your recipes this week
               </Text>
             </Stack>
             <Text fontWeight="400">
-              Bengaluru (also called Bangalore) is the center of India's high-tech
-              industry. The city is also known for its parks and nightlife.
+              This part isn't implemented yet but with the future of this app we plan to highlight
+              how much waste you've saved by using the recipes designed to use the ingredients you have and 
+              are trying to get rid of.
             </Text>
             <HStack alignItems="center" space={4} justifyContent="space-between">
               <HStack alignItems="center">
