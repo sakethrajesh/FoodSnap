@@ -61,7 +61,7 @@ export default function CameraScreen({ navigation }) {
                 base64: base64,
             };
             const s3Url = await uploadPhotoToS3(photoTaken);
-            console.log('S3 URL:', s3Url);
+            return s3Url;
 
         } catch (error) {
             console.error('Error uploading photo:', error);
@@ -71,8 +71,9 @@ export default function CameraScreen({ navigation }) {
     }
     const __savePhoto = async () => {
         MediaLibrary.saveToLibraryAsync(capturedImage.uri)
-        await handlePhotoUpload(capturedImage.uri, capturedImage.base64)
-        navigation.navigate('ProgressBar'); // Redirect to the dashboard or next screen
+        const s3Key = await handlePhotoUpload(capturedImage.uri, capturedImage.base64)
+        
+        navigation.navigate('ProgressBar', {imageKey: s3Key}); // Redirect to the dashboard or next screen
 
 
     }
