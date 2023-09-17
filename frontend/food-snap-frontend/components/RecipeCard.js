@@ -13,42 +13,51 @@ import RecipeImage from "./RecipeImage"
 import FoodPrefsBar from './FoodPrefsBar';
 import Toolbar from './Toolbar.js';
 
-const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps }) => {
+const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     const navigation = useNavigation();
     const route = useRoute();
     var image_url = '';
     var ingredients = '';
     var steps = '';
-    var name = '';
+    var _name = '';
+    if (listOfIngredients !== undefined && listOfIngredients !== null && listOfIngredients.length !== 0) {
+        ingredients = listOfIngredients.join("\r\n");
+        steps = recipeSteps
+        _name = name
 
-    try {
-        image_url = route.params.image_url;
-        ingredients = route.params.ingredients;
-        steps = route.params.steps;
-        name = route.params.name;
-    }
-
-    catch {
+    } else {
         try {
-            image_url = imageurl;
-            ingredients = listOfIngredients;
-            steps = recipeSteps;
-            name = "djdfjd";
+            image_url = route.params.image_url;
+            ingredients = route.params.ingredients;
+            steps = route.params.steps;
+            _name = route.params.name;
+            console.log("in here!!!");
         }
+    
         catch {
-            //should change this catch to be the props
-            image_url = "https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png";
-            ingredients = "ingredie"
-            steps = "steps"
-            name = "chick"
+            try {
+                image_url = imageurl;
+                ingredients = listOfIngredients;
+                steps = recipeSteps;
+                _name = "djdfjd";
+            }
+            catch {
+                //should change this catch to be the props
+                image_url = "https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png";
+                ingredients = "ingredie"
+                steps = "steps"
+                _name = "chick"
+            }
         }
+        
     }
+    
 
     return (
         <NativeBaseProvider>
             <View style={styles.container}>
                 <HStack space={2} justifyContent="center">
-                    <RecipeImage name={name} image_url={image_url}></RecipeImage>
+                    <RecipeImage name={_name} image_url={image_url}></RecipeImage>
                     <RecipeIngredients ingredients={ingredients}></RecipeIngredients>
                 </HStack>
                 <RecipeSteps steps={steps}></RecipeSteps>

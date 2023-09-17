@@ -12,7 +12,7 @@ import RecipeCard from './RecipeCard.js'
 
 import axios from 'axios';
 
-const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, name, userName }) => {
+const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, names, userName }) => {
     const navigation = useNavigation();
 
     const addRecipe = async () => {
@@ -65,15 +65,21 @@ const RecipeTinder = ({ imageurl, listOfIngredients, recipeSteps, name, userName
     return (
         <View style={styles.scrollView}>
 
-            <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-                <RecipeCard imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-            </TinderCard>
-            <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-                <RecipeCard imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-            </TinderCard>
-            <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-                <RecipeCard imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
-            </TinderCard>
+            {names.map((name, index) => (
+                <TinderCard
+                key={index}
+                onSwipe={onSwipe}
+                onCardLeftScreen={() => onCardLeftScreen(name)}
+                preventSwipe={['up', 'down']}
+                >
+                    <RecipeCard
+                        imageurl={imageurl}
+                        listOfIngredients={listOfIngredients[index]}
+                        recipeSteps={recipeSteps[index]}
+                        name={name}
+                    ></RecipeCard>
+                </TinderCard>
+            ))}
 
         </View>
     )

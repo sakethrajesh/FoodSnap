@@ -11,10 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from 'axios';
 import MainNavBar from './MainNavBar.js';
 
-
-
-
-
 const DashboardScreen = () => {
   const [people, setPeople] = useState(null);
 
