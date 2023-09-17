@@ -15,7 +15,7 @@ import { manipulateAsync } from 'expo-image-manipulator';
 import { uploadPhotoToS3 } from '../AWS/s3Utils';
 import axios from 'axios';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, setUserName }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -82,6 +82,7 @@ const HomeScreen = ({ navigation }) => {
     }
     addUser(url);
     console.log(`Username: ${username}, Password: ${password}`);
+    setUserName(username)
     navigation.navigate('Dashboard'); // Redirect to the dashboard or next screen
   };
 
@@ -95,7 +96,7 @@ const HomeScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Username"
-          onChangeText={text => setUsername(text)}
+          onChangeText={text => setUsername(text) }
           value={username}
         />
       </View>
