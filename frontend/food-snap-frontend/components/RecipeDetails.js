@@ -34,8 +34,7 @@ const RecipeDetails = () => {
                         }} _dark={{
                             color: "violet.400"
                         }} fontWeight="500" ml="-0.5" mt="-1">
-                            Preheat Oven
-                            Roast Chicken
+                          {steps}
                         </Text>
                     </Stack>
 

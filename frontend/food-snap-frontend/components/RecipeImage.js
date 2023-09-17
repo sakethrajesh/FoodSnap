@@ -7,7 +7,7 @@ import {
 import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const RecipeImage = ({imageurl, name}) => {
+const RecipeImage = ({image_url, name}) => {
     const navigation = useNavigation();
 
 
@@ -27,7 +27,7 @@ const RecipeImage = ({imageurl, name}) => {
                 <Box>
                     <AspectRatio width="100%" height="100%" ratio={10 / 19}>
                         <Image source={{
-                            uri: "https://tastesbetterfromscratch.com/wp-content/uploads/2023/03/Chicken-Parmesan-1-500x500.jpg"
+                            uri: image_url
                         }} alt="image" />
                     </AspectRatio>
                     <Center bg="blue.300" _dark={{
@@ -37,7 +37,7 @@ const RecipeImage = ({imageurl, name}) => {
                         fontWeight: "700",
                         fontSize: "xs"
                     }} position="absolute" bottom="0" px="3" py="1.5">
-                        CHICKEN PARM
+                        {name}
                     </Center>
                 </Box>
 

@@ -17,7 +17,13 @@ const Toolbar = () => {
 
     return <Box alignItems="center" marginBottom={5}>
         <Flex direction="row" h="58" p="4">
-            <Pressable onPress={() => navigation.navigate("Recipes")} >
+        <Pressable onPress={() => navigation.navigate("Recipes", {
+                image_url: 'https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png',
+                ingredients: 'chicken \n beef \n corn \n stew \n avocados',
+                steps: 'preheat oven \n cook chicken \n boil sauce \n sprinkle seasoning',
+                name: 'chicken parm'
+
+            })} >
                 <Text >Find Recipes</Text>
             </Pressable>
             <Divider bg="emerald.500" thickness="2" mx="2" orientation="vertical" />

@@ -18,7 +18,14 @@ const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
         console.log('You swiped: ' + direction)
         //if swiped left ignore the recipe, if swiped right then go to recipe page:
         if(direction == 'right'){
-            navigation.navigate("Recipes"); //need to fix this ughhh
+
+            navigation.navigate("Recipes", {
+                image_url: imageurl,
+                ingredients: listOfIngredients,
+                steps: recipeSteps,
+                name: 'chicken parm'
+
+              }); //need to fix this ughhh
         }
     }
 
@@ -30,13 +37,13 @@ const RecipeTinder = ({imageurl, listOfIngredients, recipeSteps}) => {
         <View style={styles.scrollView}>
 
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-            <RecipeCard recipeSteps={recipeSteps}></RecipeCard>
+            <RecipeCard  imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
         </TinderCard>
            <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-           <RecipeCard></RecipeCard>
+           <RecipeCard imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
        </TinderCard>
           <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
-          <RecipeCard></RecipeCard>
+          <RecipeCard  imageurl={imageurl} listOfIngredients={listOfIngredients} recipeSteps={recipeSteps}></RecipeCard>
       </TinderCard>
         
       </View>

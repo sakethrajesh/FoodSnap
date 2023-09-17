@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { NativeBaseProvider, Box, HStack, Spacer, Flex, Pressable, Badge, Center, Image, Button } from "native-base";
 import { useNavigation } from "@react-navigation/native";
-import {generatePreSignedUrl} from "../AWS/s3Utils.js"
+import { generatePreSignedUrl } from "../AWS/s3Utils.js"
 
 
 const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => {
@@ -16,20 +16,20 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => 
 
     useEffect(() => {
         const fetchPhoto = async () => {
-          try {
-            const imageUrl_ = await generatePreSignedUrl(imageUrl);
-            const profileUrl_ = await generatePreSignedUrl(profilePicture);
-            setPhotoUrl(imageUrl_);
-            setProfile_image_url(profileUrl_)
-          } catch (error) {
-            // Handle the error here
-            console.error('Error retrieving photo:', error);
-          }
+            try {
+                const imageUrl_ = await generatePreSignedUrl(imageUrl);
+                const profileUrl_ = await generatePreSignedUrl(profilePicture);
+                setPhotoUrl(imageUrl_);
+                setProfile_image_url(profileUrl_)
+            } catch (error) {
+                // Handle the error here
+                console.error('Error retrieving photo:', error);
+            }
         };
-    
+
         fetchPhoto();
-      }, [imageUrl, profilePicture]);
-    
+    }, [imageUrl, profilePicture]);
+
 
     const handleReadMore = () => {
         // Implement your login logic here
@@ -38,7 +38,13 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => 
     return (
         // <NativeBaseProvider>
         <Box alignItems="center">
-            <Pressable onPress={() => navigation.navigate("Recipes")} >
+            <Pressable onPress={() => navigation.navigate("Recipes", {
+                image_url: 'https://www.splashlearn.com/math-vocabulary/wp-content/uploads/2022/05/graphs-9-01-1.png',
+                ingredients: 'chicken \n beef \n corn \n stew \n avocados',
+                steps: 'prheat oven \n cook chicken \n boil sauce \n sprinkle seasoning',
+                name: 'chicken parm'
+
+            })} >
             <Box rounded="8" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
 
                 <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
@@ -49,7 +55,7 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => 
                         uri: photoUrl
                     }} alt="Alternate Text" />
                 </Center>
-     
+
                 <HStack alignItems="center">
                     <Badge>
                         <Center>
@@ -69,8 +75,8 @@ const RecipeListElement = ({ imageUrl, title, dateCreated, profilePicture }) => 
                     </Text>
                 </Flex>
             </Box>
-            </Pressable>
-        </Box>
+        </Pressable>
+        </Box >
     );
 
 };
