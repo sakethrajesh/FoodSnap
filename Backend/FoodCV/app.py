@@ -157,7 +157,7 @@ def generateRecipe():
     # thing = llm_chain.run(question)
     
     thing = []
-    thing.append(llm_chain.run(sentence))
+    thing.append(llm_chain(sentence))
     thing.append(llm_chain(sentence))
     thing.append(llm_chain(sentence))
 
