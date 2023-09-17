@@ -116,6 +116,8 @@ def getIngredients():
     for cls, bbox in zip(classes, bboxes):
         (x1, y1, x2, y2) = bbox
         color = (0, 255, 0)
+
+        ingredients[names[cls]] += 1
     
     return jsonify({"ingredients": ingredients})
 
@@ -138,11 +140,12 @@ def generateRecipe():
         sentence = f"I have {', '.join(items[:-1])}, and {items[-1]}."
 
 
-    template = """${sentence}, generate 3 recipes. 
-                Structure the recipe as follows: 
-                1. Name of Dish 
-                2. Ingredients
-                3. Steps
+    template = """${sentence}, generate a recipe. 
+                \n\nStructure the recipe as follows: 
+                \n1. Name of Dish 
+                \n2. Ingredients
+                \n3. Steps
+                \n\nExceptionally long answer:
                 """
 
     prompt = PromptTemplate(template=template, input_variables=["sentence"])
@@ -155,8 +158,9 @@ def generateRecipe():
     
     thing = []
     thing.append(llm_chain.run(sentence))
-    # thing.append(run_llm_chain(question))
-    # thing.append(run_llm_chain(question))
+    thing.append(llm_chain(sentence))
+    thing.append(llm_chain(sentence))
+
     print(thing, flush=True)
         
     
