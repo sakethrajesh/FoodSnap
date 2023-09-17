@@ -55,18 +55,10 @@ const DashboardScreen = () => {
             ));
           })
         ) : (
-          <Text>Hello World</Text>
+          <Text>Loading</Text>
         )}
 
-        
-
-        {/* {recipes ? recipes.map((item, index) => {
-          return (
-            <RecipeListElement key={index} imageUrl={item["image_url"]} title={item["name"]} dateCreated={new Date().getFullYear} profilePicture={profilePicture}> </RecipeListElement>
-          )
-        }) : <Text>Hello World</Text>} */}
-        
-
+        {/* </View> */}
       </ScrollView>
       {/* put camera page instead of recipes page */}
       <Button style={styles.button} onPress={() => navigation.navigate("CameraScreen")} endIcon={<AddIcon as={AddIcon} name="add" size="sm" />}>
