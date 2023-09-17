@@ -9,6 +9,7 @@ from bson import json_util
 from langchain.llms import OpenAI
 from langchain import PromptTemplate, LLMChain
 import concurrent.futures
+import requests
 
 app = Flask(__name__)
 connection_string = "mongodb+srv://poweruser:1PDanWORHzg7sVfj@vthacks2023.ymk3xof.mongodb.net/?retryWrites=true&w=majority"
@@ -238,7 +239,21 @@ def get_users():
 # api route that gets a picture based on dish that is passed in
 @app.route('/api/getPicture/<dish>', methods=['GET','POST'])
 def getPicture(dish):
-    return jsonify({"picture": "picture"})
+
+    api_key = "uPsNRgtXahQvmogF0f5bLA7Do5h-1nOTqNqZycEN_TI"
+
+    # Define the API endpoint
+    url = f'https://api.unsplash.com/search/photos/?query={dish}&client_id={api_key}'
+
+    # Send the GET request
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        photos = data['results'][0]
+
+    return jsonify({"picture_url": photos['urls']['regular']})
 
 
 
