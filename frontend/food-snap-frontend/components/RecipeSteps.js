@@ -4,10 +4,10 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
-import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack,  InfoIcon } from "native-base";
+import { NativeBaseProvider, Box, VStack, Heading, Center, Image, Button, ScrollView, AspectRatio, HStack, Stack, InfoIcon } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const RecipeSteps = ({steps}) => {
+const RecipeSteps = ({ steps }) => {
     const navigation = useNavigation();
 
 
@@ -22,12 +22,11 @@ const RecipeSteps = ({steps}) => {
         }} _light={{
             backgroundColor: "gray.50"
         }}>
-                <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details",{ steps:steps})} endIcon={<InfoIcon sname="add" size="sm" />}>
-                </Button>
+
             <Stack p="4" space={3}>
                 <Stack space={2}>
                     <Heading size="md" ml="-1">
-                        Steps: 
+                        Steps:
                     </Heading>
                     <ScrollView>
                         <Text fontSize="xs" _light={{
@@ -38,6 +37,10 @@ const RecipeSteps = ({steps}) => {
                             {steps}
                         </Text>
                     </ScrollView>
+                    <Button style={styles.button} onPress={() => navigation.navigate("Recipe Details", {
+                        steps: {steps}
+                    })} endIcon={<InfoIcon name="add" size="sm" />}>
+                    </Button>
                 </Stack>
 
             </Stack>
@@ -67,10 +70,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 20,
+        top: 20,
         right: 10
-    
-      },
+
+    },
 
 });
 

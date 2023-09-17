@@ -22,24 +22,25 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
     var _name = '';
     if (listOfIngredients !== undefined && listOfIngredients !== null && listOfIngredients.length !== 0) {
         ingredients = listOfIngredients.join("\r\n");
-        steps = recipeSteps
-        _name = name
+        steps = recipeSteps;
+        _name = name;
 
     } else {
         try {
             image_url = route.params.image_url;
-            ingredients = route.params.ingredients;
-            steps = route.params.steps;
+            ingredients = route.params.ingredients.join("\r\n");
+            steps = route.params.steps.join("\r\n");
             _name = route.params.name;
+            console.log("name!!: ",_name)
             console.log("in here!!!");
         }
     
         catch {
             try {
                 image_url = imageurl;
-                ingredients = listOfIngredients;
+                ingredients = listOfIngredients.join("\r\n");
                 steps = recipeSteps;
-                _name = "djdfjd";
+                _name = name;
             }
             catch {
                 //should change this catch to be the props
@@ -51,6 +52,7 @@ const RecipeCard = ({ imageurl, listOfIngredients, recipeSteps, name }) => {
         }
         
     }
+
     
 
     return (

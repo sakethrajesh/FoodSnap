@@ -6,9 +6,10 @@ import {
 import { Text, Icon, HStack, Box, StatusBar, IconButton, MaterialIcons, Badge, Center, VStack, Menu, Image, Button } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import logo from "../assets/FoodSnapLogo.png";
-import {generatePreSignedUrl} from "../AWS/s3Utils.js"
+import { generatePreSignedUrl } from "../AWS/s3Utils.js"
+import axios from 'axios';
 
-function MainNavBar({ imageUrl, profilePicture }) {
+function MainNavBar({ imageUrl, profilePicture, userName }) {
     const navigation = useNavigation();
 
     const [shouldOverlapWithTrigger] = React.useState(false);
@@ -19,20 +20,55 @@ function MainNavBar({ imageUrl, profilePicture }) {
 
     useEffect(() => {
         const fetchPhoto = async () => {
-          try {
-            const imageUrl_ = await generatePreSignedUrl(imageUrl);
-            const profileUrl_ = await generatePreSignedUrl(profilePicture);
-            setPhotoUrl(imageUrl_);
-            setProfile_image_url(profileUrl_)
-          } catch (error) {
-            // Handle the error here
-            console.error('Error retrieving photo:', error);
-          }
+            const user = userName["userName"];
+            
+            const apiUrl2 = 'http://107.21.84.60/get_user/' + user
+
+            console.log("logged: " +apiUrl2);
+
+            // Make the GET request using Axios
+            axios.get(apiUrl2)
+                .then(response => {
+                    console.log("AHHHHHHH "+ apiUrl2);
+                    // Handle success, you can access the response data using response.data
+                    // console.log("URLLLLLLLLLLLL:" +apiUrl2["profile_image_url"])
+                    // try {
+                    //     const profileUrl_ =  generatePreSignedUrl(apiUrl2["profile_image_url"]);
+                    //     setProfile_image_url(profileUrl_)
+                    // } catch (error) {
+                    //     // Handle the error here
+                    //     console.error('Error retrieving photo:', error);
+                    // }
+                })
+                .catch(error => {
+                    // Handle error
+                    console.error(error);
+                    console.log("User doesn't exist")
+                });
+           
         };
-    
+
         fetchPhoto();
-      }, [imageUrl, profilePicture]);
-    
+    }, [imageUrl, profilePicture]);
+
+    const getUserPic = async () => {
+
+        const user = userName;
+        const apiUrl2 = `http://107.21.84.60/get_user/` + user;
+        console.log("AHHHHHHH" + apiUrl)
+        // Make the GET request using Axios
+        axios.get(apiUrl2)
+            .then(response => {
+                // Handle success, you can access the response data using response.data
+                console.log(apiUrl2["profile_image_url"])
+                return apiUrl2["profile_image_url"];
+            })
+            .catch(error => {
+                // Handle error
+                console.error(error);
+                console.log("User doesn't exist")
+            });
+    };
 
     return <>
         <StatusBar bg="blue.200" barStyle="light-content" marginTop={50} />
@@ -50,7 +86,7 @@ function MainNavBar({ imageUrl, profilePicture }) {
                                     </Button>
                                 }}>
                                 <Menu.Item onPress={() => navigation.navigate("Login")}>Logout</Menu.Item>
-                                <Menu.Item  onPress={() => navigation.navigate("Home")}>Sign Up</Menu.Item>
+                                <Menu.Item onPress={() => navigation.navigate("Home")}>Sign Up</Menu.Item>
                             </Menu>
                         </VStack>
 
