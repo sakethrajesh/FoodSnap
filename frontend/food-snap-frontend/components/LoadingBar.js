@@ -1,40 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import ProgressCircle from 'react-native-progress/Circle'; // You can choose a different type of progress bar (Circle, Bar, etc.) based on your preference.
-
+import axios from 'axios';
+import RecipeTinder from "./TinderSwipe";
 
 const LoadingBar = ({ navigation }) => {
     const [progress, setProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const [steps, setSteps] = useState(null)
 
     useEffect(() => {
-        // Simulate progress updates (replace this with your actual logic)
-        const interval = setInterval(() => {
-          setProgress((prevProgress) => {
-            if (prevProgress < 1) {
-              return prevProgress + 0.5;
-            } else {
-              clearInterval(interval);
-             navigation.navigate('Cards'); // Redirect to the dashboard or next screen
-              return 1;
-            }
+
+      async function fetchData() {
+        setProgress((prevproge) => prevproge + .5)
+        const url = 'http://107.21.84.60/api/generateRecipe';
+        const data = {
+          ingredients: {
+            chicken: 1,
+            onion: 2,
+            carrot: 1,
+            potato: 3
+          }
+        };
+
+        axios.post(url, data, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(async (response) => {
+            console.log(response.data.recipies[0])
+            setSteps(response.data.recipies[0]);
+            setProgress((x) => x + .5);
+            setIsLoading(false);
+            console.log("current steps: ",steps);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
           });
-          
-        }, 1000);
-        
-        return () => clearInterval(interval); // Cleanup when the component unmounts
+
+      }
+
+      
+
+        fetchData();
       }, []);
+    
       
     
     return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ProgressCircle
-        progress={progress}
-        size={300}
-        showsText={true}
-        />
-
-        {/* <Text>{Math.round(progress * 100)}%</Text> */}
-    </View>
+      <>
+      {steps ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ProgressCircle
+          progress={progress}
+          size={300}
+          showsText={true}
+          />
+      </View> : <RecipeTinder recipeSteps={steps}></RecipeTinder>}
+      </>
+      
     );
       
   };

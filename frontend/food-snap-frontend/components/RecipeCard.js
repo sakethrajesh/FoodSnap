@@ -12,7 +12,7 @@ import RecipeImage from "./RecipeImage"
 import FoodPrefsBar from './FoodPrefsBar';
 import Toolbar from './Toolbar.js';
 
-const RecipeCard = () => {
+const RecipeCard = ({imageurl, listOfIngredients, recipeSteps}) => {
     const navigation = useNavigation();
 
 

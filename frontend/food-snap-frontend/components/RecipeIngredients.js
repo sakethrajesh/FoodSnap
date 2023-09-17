@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-const RecipeIngredients = () => {
+const RecipeIngredients = ({listOfIngredients}) => {
   const navigation = useNavigation();
   const INGREDIENTS = [
     {
