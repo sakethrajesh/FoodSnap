@@ -15,21 +15,15 @@ import MainNavBar from './MainNavBar.js';
 
 
 const DashboardScreen = () => {
-
-  const [recipes, setRecipes] = useState(null);
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [people, setPeople] = useState(null);
 
   useEffect(() => {
-    const apiUrl = 'http://107.21.84.60/get_user/hello_world';
+    const apiUrl = 'http://107.21.84.60/get_users';
     axios.get(apiUrl)
       .then(response => {
         // Handle the response data here
         console.log('Response:', response.data);
-        // console.log('data!!!:', response.data.recipes);
-        setRecipes(response.data.recipes);
-        setProfilePicture(response.data.profile_image_url);
-        // console.log(recipes)
-        // console.log(recipes)
+        setPeople(response.data)
 
       })
       .catch(error => {
@@ -46,14 +40,31 @@ const DashboardScreen = () => {
         <MainNavBar></MainNavBar>
       </Center>
       <ScrollView style={styles.scrollView}>
-        <Toolbar></Toolbar>
 
+        {people ? (
+          people.map((item, i) => {
+            return item.recipes.map((recipe, index) => (
+              <RecipeListElement
+                key={index}
+                imageUrl={recipe["image_url"]}
+                title={item["name"]}
+                dateCreated={new Date().getFullYear()} // This should be a function call
+                profilePicture={item["profile_image_url"]}
+              />
+            ));
+          })
+        ) : (
+          <Text>Hello World</Text>
+        )}
 
-        {recipes ? recipes.map((item, index) => {
+        
+
+        {/* {recipes ? recipes.map((item, index) => {
           return (
             <RecipeListElement key={index} imageUrl={item["image_url"]} title={item["name"]} dateCreated={new Date().getFullYear} profilePicture={profilePicture}> </RecipeListElement>
           )
-        }) : <Text>Hello World</Text>}
+        }) : <Text>Hello World</Text>} */}
+        
 
       </ScrollView>
       {/* put camera page instead of recipes page */}

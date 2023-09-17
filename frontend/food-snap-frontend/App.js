@@ -19,6 +19,7 @@ import RecipeCard from './components/RecipeCard';
 import Toolbar from './components/Toolbar';
 import RecipeDetails from './components/RecipeDetails';
 import TinderSwipe from './components/TinderSwipe';
+import Login from './components/Login'
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,7 @@ const App = () => {
   return (
     <AuthProvider>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
+          <Stack.Navigator initialRouteName="Login">
           <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
           <Stack.Screen options={{ headerShown: false }} name="Dashboard" component={DashboardScreen} />
           <Stack.Screen options={{ headerShown: false }} name="Recipes" component={RecipeCard} />
@@ -36,6 +37,8 @@ const App = () => {
           <Stack.Screen options={{ headerShown: false }} name="ProgressBar" component={LoadingBar}/>
           <Stack.Screen options={{ headerShown: false }} name="Recipe Details" component={RecipeDetails} />
           <Stack.Screen options={{ headerShown: false }} name="Tinder" component={TinderSwipe} />
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+        
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
