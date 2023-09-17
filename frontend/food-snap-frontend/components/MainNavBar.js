@@ -14,8 +14,6 @@ function MainNavBar() {
     const [position, setPosition] = React.useState("auto");
     const [people, setPeople] = useState(null);
 
-
-
     return <>
         <StatusBar bg="blue.200" barStyle="light-content" marginTop={50} />
         {/* <Box safeAreaTop bg="blue.200" /> */}
