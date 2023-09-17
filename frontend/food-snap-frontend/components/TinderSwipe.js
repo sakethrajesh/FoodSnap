@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import Toolbar from './Toolbar.js';
 import TinderCard from 'react-tinder-card'
 import RecipeCard from './RecipeCard.js'
+import GraphCard from './GraphCard.js'
 
 const RecipeTinder = () => {
     const navigation = useNavigation();
@@ -28,6 +29,7 @@ const RecipeTinder = () => {
 
     return (
         <View style={styles.scrollView}>
+
         <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
             <RecipeCard></RecipeCard>
         </TinderCard>
@@ -37,6 +39,7 @@ const RecipeTinder = () => {
           <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
           <RecipeCard></RecipeCard>
       </TinderCard>
+        
       </View>
     )
 }
